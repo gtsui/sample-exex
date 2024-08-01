@@ -4,7 +4,6 @@ use reth_node_ethereum::EthereumNode;
 use reth_tracing::tracing::info;
 
 async fn my_exex<Node: FullNodeComponents>(mut ctx: ExExContext<Node>) -> eyre::Result<()> {
-    println!("Running sample ExEx...");
     while let Some(notification) = ctx.notifications.recv().await {
         match &notification {
             ExExNotification::ChainCommitted { new } => {
@@ -28,6 +27,7 @@ async fn my_exex<Node: FullNodeComponents>(mut ctx: ExExContext<Node>) -> eyre::
 }
 
 fn main() -> eyre::Result<()> {
+    println!("Running sample ExEx...");
     reth::cli::Cli::parse_args().run(|builder, _| async move {
         let handle = builder
             .node(EthereumNode::default())
